@@ -30,6 +30,17 @@ jobs:
         submodules: recursive
     - uses: jrl-umi3218/github-actions/build-conan-package@master
       with:
+        package: mingw_installer
+        version: 1.0
+        user: gergondet
+        repository: multi-contact
+        stable-channel: 3rd-party
+        dev-channel: 3rd-party
+        working-directory: conan-mingw-installer
+        BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+      if: startsWith(runner.os, 'Windows')
+    - uses: jrl-umi3218/github-actions/build-conan-package@master
+      with:
         package: tinyxml2
         version: 8.0.0
         user: gergondet

@@ -1,0 +1,3 @@
+[submodule "conan-mingw-installer"]
+	path = conan-mingw-installer
+	url = git@github.com:gergondet/conan-mingw-installer.git
