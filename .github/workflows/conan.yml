@@ -31,7 +31,7 @@ jobs:
     - uses: jrl-umi3218/github-actions/build-conan-package@master
       with:
         package: mingw_installer
-        version: 1.0
+        version: '1.0'
         user: gergondet
         repository: multi-contact
         stable-channel: 3rd-party
