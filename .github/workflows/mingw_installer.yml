@@ -1,0 +1,37 @@
+name: mingw_installer packaging for multi-contact 3rd parties
+
+on:
+  push:
+    paths:
+      # Changes to those files don't mandate running CI
+      - ".github/workflows/mingw_installer.yml"
+      - "conan-mingw-installer"
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Set git to use LF
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+      if: startsWith(runner.os, 'Windows')
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - uses: jrl-umi3218/github-actions/build-conan-package@master
+      with:
+        package: mingw_installer
+        version: '1.0'
+        user: gergondet
+        repository: multi-contact
+        stable-channel: 3rd-party
+        dev-channel: 3rd-party
+        working-directory: conan-mingw-installer
+        BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
