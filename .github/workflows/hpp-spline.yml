@@ -35,5 +35,7 @@ jobs:
         dev-channel: 3rd-party
         with-build-type: true
         working-directory: hpp-spline
+        with-docker: ${{ matrix.os }} == 'ubuntu-18.04'
+        docker-images: '[debian:buster, ubuntu:20.04]'
         BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
 
