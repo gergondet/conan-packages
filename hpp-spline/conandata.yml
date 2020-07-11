@@ -1,0 +1,4 @@
+sources:
+  "4.8.2":
+    sha256: 3a8bdd43edbcf384ac0f591e3dc0ccfee73f4916d60504100227f7cc6e84f602
+    url: https://github.com/gergondet/hpp-spline/releases/download/v4.8.2-debian.1/hpp-spline-v.4.8.2-debian.1.tar.gz
