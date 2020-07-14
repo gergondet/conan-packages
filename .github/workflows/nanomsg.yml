@@ -1,0 +1,41 @@
+name: nanomsg packaging for multi-contact 3rd parties
+
+on:
+  push:
+    paths:
+      # Only run if these files change
+      - ".github/workflows/nanomsg.yml"
+      - "nanomsg/**"
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Set git to use LF
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+      if: startsWith(runner.os, 'Windows')
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - uses: jrl-umi3218/github-actions/build-conan-package@master
+      with:
+        package: nanomsg
+        version: 1.1.5
+        user: gergondet
+        repository: multi-contact
+        stable-channel: 3rd-party
+        dev-channel: 3rd-party
+        with-build-type: true
+        working-directory: nanomsg
+        with-docker: ${{ matrix.os == 'ubuntu-18.04' }}
+        docker-images: '[debian:buster, ubuntu:20.04]'
+        BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+
